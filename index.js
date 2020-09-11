@@ -18,23 +18,23 @@ MongoClient.connect(url)
         dboper.insertDocument(db, { name: "Vadonut", description: 'Test'}, 'dishes')
             .then((result)=>{  
                 console.log('Insert Document:\n', result.ops);
-                dboper.findDocuments(db, 'dishes')
+                return dboper.findDocuments(db, 'dishes')
             })
             .then( (docs)=>{
                     console.log('Found Documents:\n', docs);
-                    dboper.updateDocument(db, {name: 'Vadonut'}, {description: "Updated Test"}, 'dishes')
+                    return dboper.updateDocument(db, {name: 'Vadonut'}, {description: "Updated Test"}, 'dishes')
             })
             .then( (docs)=>{
                 console.log("updated Document:\n", docs.result);
-                dboper.findDocuments(db, 'dishes')
+                return dboper.findDocuments(db, 'dishes')
             })
             .then( (docs)=>{
                 console.log('Found Documents:\n', docs);
-                db.dropCollection('dishes')
+                return db.dropCollection("dishes")
             })
             .then( (result)=>{
                 console.log('dropped collection: ', result);
-                client.close();           
+                return client.close();           
         })
         .catch((err) => console.log(err));
         
